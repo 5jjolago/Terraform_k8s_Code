@@ -5,7 +5,14 @@ resource "aws_vpc" "ozzorago_vpc" {
     }
 }  
 
-
+resource "aws_db_subnet_group" "ozzorago-db-subnet-group" {
+  name       = "ozzorago-db-subnet-group"
+  subnet_ids = [
+    aws_subnet.private-sn-1.id,
+    aws_subnet.private-sn-2.id,
+    aws_subnet.private-sn-3.id,
+  ]
+}
 resource "aws_subnet" "public-sn-1" {
     vpc_id = aws_vpc.ozzorago_vpc.id
     cidr_block = "10.100.0.0/24"
