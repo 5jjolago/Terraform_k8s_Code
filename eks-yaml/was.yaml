@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: mywas
-        image: gah1234/ozzorago-back:v1
+        image: gah1234/backendimage:v4
         ports:
         - containerPort: 8080
 ---
