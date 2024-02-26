@@ -4,7 +4,6 @@ kind: Deployment
 metadata:
   name: myweb-deploy
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: myweb
@@ -15,9 +14,28 @@ spec:
     spec:
       containers:
       - name: myweb
-        image: gah1234/frontapp:v2
+        # image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/frontend:v2
+        image: gah1234/testfront:v10
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name : nginx-conf
+          mountPath: /etc/nginx/conf
+        - name: nginx-logs
+          mountPath: /var/log/nginx
+      - name: filebeat
+        image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/filebeat:latest
+        volumeMounts:
+        - name: nginx-logs
+          mountPath: /var/log/nginx
+      volumes:
+        - name : nginx-conf
+          configMap:
+            name: nginx-conf
+        - name: nginx-logs
+          emptyDir: {}
+
+
 ---
 apiVersion: v1
 kind: Service

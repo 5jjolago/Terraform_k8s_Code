@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: myredis-svc
+spec:
+  type: ExternalName
+  externalName: clustercfg.ozzorag-redis.j4cn7u.apn2.cache.amazonaws.com
